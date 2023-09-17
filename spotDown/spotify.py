@@ -76,7 +76,7 @@ playlist_link = 'https://open.spotify.com/playlist/6pOAWULl15h5nP3syN7O3w?si=63b
 def query(songs):
     queries = []
     for song, artist in songs.items():
-        query = f'{song} {artist} official music video'.replace(' ', '%20')
+        query = f'{song} {artist}'.replace(' ', '%20')
         youtube_api = 'AIzaSyAIa59pWRao9Z33pdFfenK0rltA5Y3ZgoA'
         youtube_url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={query}&key={youtube_api}&type=video&videoSyndicated=true&type=video'
         try:
