@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 from streamlit_card import card
 import streamlit as st
-import cv2
 import numpy as np
 import streamlit as st
 import subprocess
