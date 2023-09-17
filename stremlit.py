@@ -4,6 +4,7 @@ import streamlit as st
 import numpy as np
 import streamlit as st
 import subprocess
+from pytube import YouTube
 
 # image = st.camera_input("Show QR code")
 
@@ -35,12 +36,15 @@ client_secret = os.getenv("CLIENT_SECRET")
 from spotDown.spotify import get_token, get_playlist_tracks, query_one
 
 def download_video(video_id):
-    try:
-        subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o',f"downloads/%(title)s.%(ext)s"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,)
-    except Exception as e:
-            st.error(f"An error occurred: {str(e)}")
+    # try:
+    #     subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o',f"downloads/%(title)s.%(ext)s"],
+    #             stdout=subprocess.PIPE,
+    #             stderr=subprocess.PIPE,)
+    # except Exception as e:
+    #         st.error(f"An error occurred: {str(e)}")
+    video = YouTube(f'https://www.youtube.com/watch?v={video_id}')
+    stream = video.streams.filter(only_audio=True).first()
+    return stream , video
 
 
 
@@ -67,9 +71,10 @@ with st.container():
         cards[1].write(key)
      
         if cards[2].button('Download',key=f'{key}'):
-            download_video(songs[key]["video_id"])
+            stream, video =  download_video(songs[key]["video_id"])
+            stream.download(filename=f"{video.title}.mp3")
         st.success(f'Download completed for video with ID: {songs[key]["video_id"]}')
-    
+
 
     #     hasClicked = card(
     # title=f"{key}",
