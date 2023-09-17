@@ -36,7 +36,9 @@ from spotDown.spotify import get_token, get_playlist_tracks, query_one
 
 def download_video(video_id):
   
-    subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o',f'songs/%(title)s.%(ext)s'])
+    subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o',f"downloads/%(title)s.%(ext)s"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,)
 
 
 token = get_token(client_id, client_secret)
