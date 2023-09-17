@@ -34,9 +34,9 @@ client_secret = os.getenv("CLIENT_SECRET")
 
 from spotDown.spotify import get_token, get_playlist_tracks, query_one
 
-def download_video(video_id, save_location):
-    save_path = os.path.join(save_location, f'%(title)s.%(ext)s')
-    subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o', save_path])
+def download_video(video_id):
+  
+    subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o',f'songs/%(title)s.%(ext)s'])
 
 
 token = get_token(client_id, client_secret)
@@ -61,11 +61,9 @@ with st.container():
         )
         cards[1].write(key)
      
-        if cards[2].download_button('Download',key=f'{key}'):
-            download_location = st.file_uploader('Select download location', type=['folder'])
-            if download_location:
-                download_video(songs[key]["video_id"], download_location.name)
-            st.success(f'Download completed for video with ID: {songs[key]["video_id"]}')
+        if cards[2].button('Download',key=f'{key}'):
+            download_video(songs[key]["video_id"])
+        st.success(f'Download completed for video with ID: {songs[key]["video_id"]}')
     
 
     #     hasClicked = card(
