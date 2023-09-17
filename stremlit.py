@@ -1,11 +1,18 @@
 from dotenv import load_dotenv
 from streamlit_card import card
+import os
 import streamlit as st
 import numpy as np
 import streamlit as st
 import subprocess
 from pytube import YouTube
 
+
+dir = 'downloads/'
+st.write(os.getcwd())
+if not os.path.exists(dir):
+    print("new dir")
+    os.makedirs(dir)
 # image = st.camera_input("Show QR code")
 
 # if image is not None:
@@ -71,8 +78,11 @@ with st.container():
         cards[1].write(key)
      
         if cards[2].button('Download',key=f'{key}'):
-            stream, video =  download_video(songs[key]["video_id"])
-            stream.download(filename=f"{video.title}.mp3")
+            with st.spinner("Downloading ..."):
+                stream, video =  download_video(songs[key]["video_id"])
+                st.write(stream)
+                stream.download(filename=f"{video.title}.mp3",output_path='downloads/')
+                st.success("Download Completed")
         st.success(f'Download completed for video with ID: {songs[key]["video_id"]}')
 
 
