@@ -35,10 +35,13 @@ client_secret = os.getenv("CLIENT_SECRET")
 from spotDown.spotify import get_token, get_playlist_tracks, query_one
 
 def download_video(video_id):
-  
-    subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o',f"downloads/%(title)s.%(ext)s"],
+    try:
+        subprocess.run(['youtube-dl', f'https://www.youtube.com/watch?v={video_id}', '--extract-audio', '-x', '--audio-format', 'mp3', '--audio-quality', '0', '-o',f"downloads/%(title)s.%(ext)s"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,)
+    except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
+
 
 
 token = get_token(client_id, client_secret)
