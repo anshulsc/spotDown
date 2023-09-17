@@ -1,6 +1,6 @@
 fastapi==0.103.1
 numpy==1.25.2
-opencv_python==4.8.0.76
+opencv-python==4.8.0.76
 python-dotenv==1.0.0
 Requests==2.31.0
 streamlit==1.26.0
