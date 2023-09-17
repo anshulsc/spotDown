@@ -64,7 +64,6 @@ def get_playlist_tracks(playlist: str, token):
         res = requests.get(endpoint, headers=access_header)
             
         playlist = json.loads(res.content)
-        print(playlist)
         songs.update({ playlist['items'][i]['track']['name']: {'Artist' :  [playlist['items'][i]['track']['artists'][0]['name']  ]
                                                                ,'url' : playlist['items'][i]['track']['album']['images'][0]['url']}
                                                                for i in range(len(playlist['items']))})
@@ -78,7 +77,7 @@ def query(songs):
     queries = []
     for song, artist in songs.items():
         query = f'{song} {artist} official music video'.replace(' ', '%20')
-        youtube_api = 'AIzaSyAmkgZ4GtLia3k-F2i8pN38vms-DrEMyDM'
+        youtube_api = 'AIzaSyAIa59pWRao9Z33pdFfenK0rltA5Y3ZgoA'
         youtube_url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={query}&key={youtube_api}&type=video&videoSyndicated=true&type=video'
         try:
             res = requests.get(youtube_url)
@@ -95,7 +94,7 @@ def query_one(songs):
     for key in songs.keys():
         print()
         query = f'{key} - {songs[key]["Artist"][0]} official song'.replace(' ', '%20')
-        youtube_api = 'AIzaSyAmkgZ4GtLia3k-F2i8pN38vms-DrEMyDM'
+        youtube_api = 'AIzaSyAIa59pWRao9Z33pdFfenK0rltA5Y3ZgoA'
         youtube_url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={query}&key={youtube_api}&type=video&videoSyndicated=true&type=video'
         try:
             res = requests.get(youtube_url)
