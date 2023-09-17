@@ -93,7 +93,7 @@ def query(songs):
 def query_one(songs):
     for key in songs.keys():
         print()
-        query = f'{key} - {songs[key]["Artist"][0]} official song'.replace(' ', '%20')
+        query = f'{key} by {songs[key]["Artist"][0]}'.replace(' ', '%20')
         youtube_api = 'AIzaSyAIa59pWRao9Z33pdFfenK0rltA5Y3ZgoA'
         youtube_url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={query}&key={youtube_api}&type=video&videoSyndicated=true&type=video'
         try:
